@@ -66,7 +66,42 @@
 
             const sinopseP = document.createElement('p');
             sinopseP.textContent = filme.sinopse;
+
+            const removerBotao = document.createElement('button');
+            removerBotao.textContent = 'Remover';
+            removerBotao.classList.add('btn-remover');
+
+            removerBotao.addEventListener('click', () => {
+                removerFilme(indice, filmeDiv);
+            });
+
+            filmeDiv.appendChild(tituloH3);
+            filmeDiv.appendChild(sinopseP);
+            filmeDiv.appendChild(removerBotao);
+
+            listaFilmesContainer.appendChild(filmeDiv);
         }
+
+        function adicionarFilme(evento) {
+            evento.preventDefault();
+        
+            const sinopseInput = document.getElementById('sinopse');
+
+            const novoFilme = {
+                titulo: tituloInput.value,
+                sinopse: sinopseInput.value
+            };
+
+            catalogo.push(novoFilme);
+
+            renderizarFilme(novoFilme, catalogo.length - 1);
+
+            form.reset();
+        }
+
+        form.addEventListener('submit', adicionarFilme);
+
+        console.log("Javascript carregando. Pronto para iniciar o catálogo!")
     </script>
 </body>
 </html>
