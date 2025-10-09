@@ -85,12 +85,12 @@
         function adicionarFilme(evento) {
             evento.preventDefault();
         
-            const tituloInput = document.getElementById('titulo');
             const sinopseInput = document.getElementById('sinopse');
+            const tituloInput = document.getElementById('titulo');
 
             const novoFilme = {
                 titulo: tituloInput.value,
-                sinopse: sinopseInput.value
+                sinopse: sinopseInput.value;
             };
 
             catalogo.push(novoFilme);
