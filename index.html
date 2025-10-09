@@ -59,7 +59,7 @@
             }
 
             const filmeDiv = document.createElement('div');
-            filmeDiv.classlist.add('filme-item');
+            filmeDiv.classList.add('filme-item');
             
             const tituloH3 = document.createElement('h3');
             tituloH3.textContent = filme.titulo;
@@ -85,6 +85,7 @@
         function adicionarFilme(evento) {
             evento.preventDefault();
         
+            const tituloInput = document.getElementById('titulo');
             const sinopseInput = document.getElementById('sinopse');
 
             const novoFilme = {
