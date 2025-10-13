@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de filmes - fase 1: Cadastro manual (DOM Básico)</title>
+    <title>Catálogo de filmes - Fase 2: Consumo de API</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -13,18 +13,13 @@
     <h1>Catálogo de Filmes</h1>
 
     <form id="cadastro-filme">
-        <h2>Adicionar Novo Filme</h2>
+        <h2>Adicionar Novo Filme (Busca por API)</h2>
         <div>
             <label for="titulo">Título do Filme:</label>
             <input type="text" id="titulo" required>
         </div>
 
-        <div>
-            <label for="sinopse">Sinopse:</label>
-            <textarea id="sinopse" required></textarea>
-        </div>
-
-        <button type="submit">Adicionar Filme</button>
+        <button type="submit">Buscar e Adicionar Filme</button>
     </form>
 
     <hr>
@@ -36,30 +31,41 @@
     </div>
 
     <script>
+        const API_KEY = 'SUA_CHAVE_OMDB_AQUI';
+
         const catalogo = [];
 
         const form = document.getElementById('cadastro-filme');
+        const tituloInput = document.getElementById('titulo');
         const listaFilmesContainer = document.getElementById('lista-filmes');
 
         function removerFilme(indice, elementoDOM) {
             catalogo.splice(indice, 1);
-
             elementoDOM.remove();
 
             if (catalogo.length === 0) {
                 listaFilmesContainer.innerHTML = '<p>Nenhum filme cadastrado ainda.</p>';
             }
-
-            console.log(`Filme no índice ${indice} removido. Catálogo atualizado:`, catalogo);
         }
 
+
         function renderizarFilme(filme, indice) {
-            if(catalogo.length === 1) {
+            if (catalogo.length === 1) {
                 listaFilmesContainer.innerHTML = '';
             }
 
             const filmeDiv = document.createElement('div');
             filmeDiv.classList.add('filme-item');
+
+            const imagemPoster = document.createElement('img');
+            imagemPoster.src = filme.poster && filme.poster !== 'N/A'
+                                ? filme.poster
+                                : 'https://via.placeholder.com/100x150?text=Poster+Nao+Disponivel'
+            imagemPoster.alt = `Pôster do filme ${filme.titulo}`;
+            imagemPoster.classList.add('filme-poster');
+
+            const infoDiv = document.createElement('div');
+            infoDiv.classList.add('filme-info');
             
             const tituloH3 = document.createElement('h3');
             tituloH3.textContent = filme.titulo;
@@ -72,7 +78,8 @@
             removerBotao.classList.add('btn-remover');
 
             removerBotao.addEventListener('click', () => {
-                removerFilme(indice, filmeDiv);
+                const indiceAtual = catalogo.findIndex(f => f.titulo === filme.titulo);
+                if (indiceAtual > -1)
             });
 
             filmeDiv.appendChild(tituloH3);
