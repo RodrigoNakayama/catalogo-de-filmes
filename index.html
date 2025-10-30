@@ -79,9 +79,9 @@
             trailerLink.textContent = '▶️ Ver Trailer (Youtube)';
             trailerLink.classlist.add('btn-trailer');
 
-            const BtnRemover = document.createElement('button');
-            BtnRemover.textContent = 'Remover';
-            BtnRemover.classList.add('btn-remover');
+            const removerBotao = document.createElement('button');
+            removerBotao.textContent = 'Remover';
+            removerBotao.classList.add('btn-remover');
 
             removerBotao.addEventListener('click', () => {
                 const indiceAtual = catalogo.findIndex(f => f.titulo === filme.titulo);
