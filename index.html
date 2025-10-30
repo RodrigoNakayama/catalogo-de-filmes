@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Filmes Fase 2: Consumo de API</title>
+    <title>Catálogo de Filmes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Catálogo de Filmes</h1>
+
     <form id="cadastro-filme">
         <h2>Adicionar Novo Filme (buscar por API)</h2>
         <div>
@@ -15,10 +16,11 @@
             <input type="text" id="titulo" required>
         </div>
 
-        <button type="submit">Adicionar Filme</button>
+        <button type="submit">Buscar e Adicionar Filme</button>
     </form>
 
     <hr>
+
     <h2>Minha Lista de Filmes</h2>
     <div id="lista-filmes">
         <p>Nenhum filme cadastrado ainda.</p>
@@ -27,10 +29,8 @@
     <script>
         const API_KEY = '8208a09d';
 
-        // 1. ARMAZENAMENTO DE DADOS
-        let catalogo = JSON.parse(localStorage.getItem('catalogoFilme')) || [];
+        let catalogo = JSON.parse(localStorage.getItem('catalogo')) || [];
 
-        // 2. CAPTURA DE ELEMENTOS
         const form = document.getElementById('cadastro-filme');
         const tituloInput = document.getElementById('titulo');
         const listaFilmesContainer = document.getElementById('lista-filmes');
