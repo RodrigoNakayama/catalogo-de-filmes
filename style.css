@@ -77,8 +77,8 @@ a {
 }
 
 .filter-dropdown {
-    width: auto;
-    cursor: pointer;
+    background-color: #121212;
+    flex-wrap: wrap;
 }
 
 .main-content {
@@ -96,7 +96,10 @@ a {
 .card-filme {
     background-color: #1f1f1f;
     border-radius: 10px;
-    overflow: idk;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
 }
 
 .card-filme:hover {
@@ -107,4 +110,71 @@ a {
 .poster-filme {
     width: 100%;
     height: auto;
+    display: block;
+    aspect-ratio: 2/3;
+}
+
+.avaliacao {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.card-detalhes {
+    padding: 15px;
+}
+
+.titulo-filme {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #f0f0f0;
+}
+
+.botao-adicionar {
+    background-color: #00e0b3;
+    color: #1f1f1f;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.botao-adicionar:hover {
+    background-color: #00c7a0;
+}
+
+@media (max-width: 768px) {
+    .nav-menu a {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .controls-section {
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    .search-bar {
+        width: 100%;
+        max-width: none;
+    }
+
+    .filter-dropdown {
+        width: 100%;
+    }
+
+    .lista-filmes {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
 }

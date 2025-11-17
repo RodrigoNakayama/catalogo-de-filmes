@@ -33,23 +33,57 @@ return card;
 
 async function buscarFilmes(termo) {
     if (!termo) return;
-}
 
-listaFilmesContainer.innerHTML = '<p style="text-align: center; color: gray;">Carregando...</p>';
 
-try {
+    listaFilmesContainer.innerHTML = '<p style="text-align: center; color: gray;">Carregando...</p>';
 
-    const response = await fetch(`https://www.omdbapi.com/?s-${termo}&apikey=${OMDB_API_KEY}`);
-    const data = await response.json();
+    try {
 
-    listaFilmesContainer.innerHTML = '';
+        const response = await fetch(`https://www.omdbapi.com/?s-${termo}&apikey=${OMDB_API_KEY}`);
+        const data = await response.json();
 
-    if (data.response === 'True' && data.Search) {
-        data.Search.forEach(async (filmeBase) => {
-            const filmeDetalhado = await buscarDetalhes(filmeBase.imdbID);
-            if (filmeDetalhado) {
-                listaFilmesContainer.appendChild(criarCardFilme(filmeDetalhado));
-            }
-        })
+        listaFilmesContainer.innerHTML = '';
+
+        if (data.response === 'True' && data.Search) {
+            data.Search.forEach(async (filmeBase) => {
+                const filmeDetalhado = await buscarDetalhes(filmeBase.imdbID);
+                if (filmeDetalhado) {
+                    listaFilmesContainer.appendChild(criarCardFilme(filmeDetalhado));
+                }
+            });
+        } else {
+            listaFilmesContainer.innerHTML = `<p style="text-align: center;">Nenhum ilme encontrado para "${termo}".</p>`
+        }
+    } catch (error) {
+        console.error("Erro ao bucar ilme:", error);
+        listaFilmesContainer.innerHTML = '<p style="text-align: center; color: red;">Erro na conexão com a API.</p>';
     }
 }
+
+async function buscarDetalhes(imdbID) {
+    try {
+        const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${OMDB_API_KEY}`);
+        const data = await response.json();
+        return data.Response === 'True' ? data : null;
+    } catch (error) {
+        console.error("Erro ao buscar detalhes:", error);
+        return null;
+    }
+}
+
+function buscarEExibirDetalhes(imdbID) {
+    alert(`Funcionalidade de Detalhes/Trailer para o ID: ${imdbID} (ainda precisa ser implementado)`);
+}
+
+let searchTimeout;
+searchInput.addEventListener('input', (event) => {
+    clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+        buscarFilmes(event.target.value.trim());
+    }, 500);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    buscarFilmes('popular');
+});
