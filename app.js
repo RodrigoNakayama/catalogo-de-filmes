@@ -52,7 +52,7 @@ async function buscarFilmes(termo) {
                 }
             });
         } else {
-            listaFilmesContainer.innerHTML = `<p style="text-align: center;">Nenhum ilme encontrado para "${termo}".</p>`
+            listaFilmesContainer.innerHTML = `<p style="text-align: center;">Nenhum filme encontrado para "${termo}".</p>`
         }
     } catch (error) {
         console.error("Erro ao bucar ilme:", error);
